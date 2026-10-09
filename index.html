@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>For My Anisha 💜</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#080812;color:#fff;font-family:'Poppins',sans-serif;overflow:hidden}
+#starBg{position:fixed;inset:0;z-index:0}
+#balloonBg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.balloon{position:absolute;bottom:-100px;animation:floatUp linear infinite;opacity:0.85}
+@keyframes floatUp{0%{transform:translateY(0) translateX(0) rotate(0deg);opacity:0}10%{opacity:0.9}90%{opacity:0.9}100%{transform:translateY(-110vh) translateX(30px) rotate(20deg);opacity:0}}
+section{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:14px;z-index:1}
+section.active{display:flex}
+.card{background:rgba(18,18,32,0.94);backdrop-filter:blur(16px);border:1px solid rgba(255,143,171,0.24);border-radius:28px;padding:22px;width:100%;max-width:460px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.6);max-height:92vh;overflow-y:auto}
+.btn{background:linear-gradient(135deg,#ff5c8a,#ff8fab);color:#fff;padding:12px 24px;border-radius:50px;margin:14px auto 0;display:block;border:0;cursor:pointer;font-weight:700;box-shadow:0 8px 20px rgba(255,92,138,0.45)}
+@keyframes flyL{0%{transform:translateX(-240px) rotate(-25deg) scale(0.6);opacity:0}60%{transform:translateX(20px) rotate(8deg) scale(1.08);opacity:1}100%{transform:translateX(0) rotate(0) scale(1);opacity:1}}
+@keyframes flyR{0%{transform:translateX(240px) rotate(25deg) scale(0.6);opacity:0}60%{transform:translateX(-20px) rotate(-8deg) scale(1.08);opacity:1}100%{transform:translateX(0) rotate(0) scale(1);opacity:1}}
+@keyframes zoomPop{0%{transform:scale(0) rotate(-10deg);opacity:0}50%{transform:scale(1.25) rotate(5deg);opacity:1}100%{transform:scale(1) rotate(0);opacity:1}}
+@keyframes flipIn{0%{transform:perspective(400px) rotateY(90deg) scale(0.7);opacity:0}60%{transform:perspective(400px) rotateY(-15deg) scale(1.05);opacity:1}100%{transform:perspective(400px) rotateY(0) scale(1);opacity:1}}
+@keyframes elasticLeft{0%{transform:translateX(-260px) scaleX(1.5);opacity:0}40%{transform:translateX(25px) scaleX(0.9);opacity:1}100%{transform:translateX(0) scaleX(1);opacity:1}}
+.item{opacity:0;background:rgba(255,255,255,0.06);padding:12px 14px;border-radius:14px;margin-top:10px;text-align:left;border:1px solid rgba(255,143,171,0.15);font-size:14px;line-height:1.5}
+.item.flyL{animation:flyL 0.85s cubic-bezier(0.68,-0.55,0.27,1.55) forwards}
+.item.flyR{animation:flyR 0.85s cubic-bezier(0.68,-0.55,0.27,1.55) forwards}
+.item.zoom{animation:zoomPop 0.75s cubic-bezier(0.68,-0.55,0.27,1.55) forwards}
+.item.flip{animation:flipIn 0.85s ease-out forwards}
+.item.elastic{animation:elasticLeft 0.95s cubic-bezier(0.68,-0.55,0.27,1.55) forwards}
+.candle{display:flex;flex-direction:column;align-items:center}
+.stick{width:6px;height:28px;background:repeating-linear-gradient(45deg,#fff,#fff 4px,#ff8fab 4px,#ff8fab 8px);border-radius:3px}
+.flame{width:10px;height:14px;background:radial-gradient(ellipse at center,#ffff8a 0%,#ffcc00 40%,#ff6a00 100%);border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;margin-bottom:2px;animation:flicker 0.2s infinite;box-shadow:0 0 8px #ffcc00}
+@keyframes flicker{0%,100%{transform:scale(1) translateY(0)}50%{transform:scale(1.1,0.9) translateY(-1px)}}
+.flame.off{opacity:0;transform:scale(0);transition:0.4s}
+</style>
+</head>
+<body>
+<canvas id="starBg"></canvas>
+<div id="balloonBg"></div>
+<audio id="bgMusic" loop><source src="https://cdn.pixabay.com/audio/2022/10/30/audio_8ef11c2d8e.mp3" type="audio/mpeg"></audio>
+<div id="soundBtn" onclick="toggleSound()" style="position:fixed;top:16px;left:12px;z-index:100;background:rgba(255,255,255,0.12);padding:8px 13px;border-radius:50px;font-size:11px;cursor:pointer;border:1px solid rgba(255,255,255,0.18)">🔊 Sound On</div>
+
+<!-- 1 FOYLA VIDEO STYLE BIG SLOW -->
+<section id="s1" class="active"><div class="card" style="max-width:480px;padding:14px;background:rgba(14,8,20,0.98)">
+<div style="width:100%;height:460px;background:radial-gradient(ellipse at center,#2a0f1a 0%,#120812 70%);border-radius:18px;position:relative;overflow:hidden;border:1px solid rgba(255,92,138,0.25)">
+<canvas id="firstCanvas" style="width:100%;height:100%"></canvas>
+<div id="firstTextOverlay" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:5;opacity:0;transition:1s">
+<h1 style="color:#fff;font-size:26px;font-weight:800;text-shadow:0 0 20px #ff2e7a,0 0 40px #ff5c8a">Happy Birthday</h1>
+<h1 style="color:#ffb3c8;font-size:32px;font-weight:900;margin-top:6px;text-shadow:0 0 20px #ff2e7a,0 0 30px #ff5c8a">Anisha 💜</h1>
+</div>
+<div id="bearLeft" style="position:absolute;bottom:10px;left:14px;font-size:38px;z-index:4">🧸</div>
+<div id="bearRight" style="position:absolute;bottom:10px;right:14px;font-size:38px;z-index:4">🧸</div>
+</div>
+<h2 style="color:#ff8fab;font-weight:800;margin-top:10px;font-size:16px" id="firstText">For You Anisha 💜</h2>
+<div class="btn" id="firstBtn" style="display:none;padding:14px 28px" onclick="go(2);playMusic()">Continue →</div></div></section>
+
+<section id="s2"><div class="card"><h2 style="color:#ff8fab;font-weight:800">Happy Birthday, Anisha! 🎂💙</h2><p style="margin-top:14px;line-height:1.7;font-size:14px;text-align:left">May your birthday be as beautiful and special as you are. I hope every moment of your life is filled with happiness, peace, love, and beautiful memories. 🥹💜<br><br>Never forget how special you are, and always keep that beautiful smile alive.<br><br>Wishing you nothing but the best today and always. 🫶🏻<br><br>Again, Happy Birthday! 🎂🐸💜</p><div class="btn" onclick="go(3)">Next →</div></div></section>
+<section id="s3"><div class="card"><h2 style="color:#ff8fab;font-weight:800">Special For You ✨</h2><p style="margin-top:14px;font-style:italic;line-height:1.8">When you're by my side, the whole world feels so much more beautiful and colorful.</p><p style="margin-top:12px;font-size:20px">💜💙💖</p><div class="btn" onclick="go(4)">Why You Special? → 💖</div></div></section>
+<section id="s4"><div class="card"><h2 style="color:#ff8fab;font-weight:800">Why You Are Special? 💖</h2><div class="item" id="r1">💙 1. Your smile makes my day brighter</div><div class="item" id="r2">💜 2. You have the kindest heart</div><div class="item" id="r3">🫶🏻 3. You make everything colorful</div><div class="item" id="r4">🥹 4. You are always so caring</div><div class="item" id="r5">🎂 5. You are one in a million, Anisha!</div><div class="btn" id="reasonBtn" style="display:none" onclick="go(5)">Next → 🌌</div></div></section>
+<section id="s5"><div class="card"><h2 style="color:#ff8fab;font-weight:800">You vs Stars 🌌💜</h2><div class="item" id="l1">🌟 Stars twinkle - But you shine brighter</div><div class="item" id="l2">🌙 Moon is beautiful - But you are more</div><div class="item" id="l3">☀️ Sun gives light - But you give happiness</div><div class="item" id="l4">🌌 Universe is big - But my world is you</div><div class="item" id="l5">💜 Stars are many - But you are one in a million!</div><div class="btn" id="littleBtn" style="display:none" onclick="go(6)">Next → 💪</div></div></section>
+<section id="s6"><div class="card"><h2 style="color:#ff8fab;font-weight:800">You Are Unstoppable 💪</h2><div class="item" style="background:linear-gradient(135deg,rgba(255,92,138,0.12),rgba(139,92,255,0.12))" id="mo1">🌟 Believe - You can make dreams true</div><div class="item" style="background:linear-gradient(135deg,rgba(255,92,138,0.12),rgba(139,92,255,0.12))" id="mo2">🚀 Shine - Your potential is limitless</div><div class="item" style="background:linear-gradient(135deg,rgba(255,92,138,0.12),rgba(139,92,255,0.12))" id="mo3">💜 Strong - Challenges make you stronger</div><div class="item" style="background:linear-gradient(135deg,rgba(255,92,138,0.12),rgba(139,92,255,0.12))" id="mo4">👑 Special - You are capable of amazing things!</div><div class="btn" id="moBtn" style="display:none" onclick="go(7)">Next → 😍</div></div></section>
+<section id="s7"><div class="card"><h2 style="color:#ff8fab;font-weight:800">Your Cuteness 😍💜</h2><div class="item" id="c1">👀 Your Eyes - Like stars shining</div><div class="item" id="c2">😊 Your Smile - My favorite view</div><div class="item" id="c3">🎙️ Your Voice - Sweetest melody</div><div class="item" id="c4">✨ Your Everything - Perfect in every way</div><div class="btn" id="cuteBtn" style="display:none" onclick="go(9)">Make A Wish → 🎆</div></div></section>
+<section id="s9"><div class="card"><h2 style="color:#ff8fab;font-weight:800">Make A Wish Anisha! 🎆</h2><p style="font-size:12px;color:#fff8;margin-top:6px">Close your eyes, make a wish and click the star!</p><div style="width:100%;height:260px;background:#0f0a1a;border-radius:20px;margin-top:12px;position:relative;overflow:hidden;border:1px solid rgba(255,143,171,0.2);display:flex;align-items:center;justify-content:center"><span id="wishStar" onclick="makeWish()" style="font-size:68px;cursor:pointer;filter:drop-shadow(0 0 20px #ff8fab)">⭐</span><canvas id="fireCanvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none"></canvas></div><p id="wishText" style="margin-top:10px;font-size:13px;color:#ff8fab;font-weight:600;opacity:0">Your wish will come true! 💜✨</p><div class="btn" id="wishBtn" style="display:none" onclick="go(10)">Your Cake → 🎂</div></div></section>
+
+<!-- 10 VIDEO STYLE CAKE -->
+<section id="s10"><div class="card" style="max-width:460px;background:rgba(14,10,20,0.96);padding:18px"><h2 style="color:#ff8fab;font-weight:800">Your Cake! 🎂</h2>
+<div id="cakeBox" style="width:100%;height:360px;background:#ff8a9a;border-radius:20px;margin-top:12px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-direction:column;border:1px solid rgba(0,0,0,0.1)">
+<div id="videoCake" style="position:relative;width:180px;height:120px;margin-top:40px;cursor:pointer" onclick="blowCandles()">
+<div style="position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);width:210px;height:18px;background:#f0f0f0;border-radius:50%;box-shadow:0 4px 0 #ddd"></div>
+<div style="position:absolute;bottom:0;width:180px;height:32px;background:#7a4a32;border-radius:6px;left:0;box-shadow:inset 0 -4px 0 #5e3521"></div>
+<div style="position:absolute;bottom:32px;width:180px;height:28px;background:#8d5a3e;border-radius:6px;left:0;box-shadow:inset 0 -3px 0 #6d4430"></div>
+<div style="position:absolute;bottom:60px;width:180px;height:26px;background:#a06a4a;border-radius:8px 8px 0 0;left:0"></div>
+<div id="frosting" style="position:absolute;bottom:58px;left:0;width:180px;height:34px;background:#fff;border-radius:8px 8px 6px 6px;display:flex;justify-content:space-around;align-items:flex-end;padding-bottom:0">
+<div style="width:22px;height:28px;background:#fff;border-radius:0 0 12px 12px;margin-bottom:-14px"></div>
+<div style="width:18px;height:36px;background:#fff;border-radius:0 0 12px 12px;margin-bottom:-20px"></div>
+<div style="width:20px;height:24px;background:#fff;border-radius:0 0 10px 10px;margin-bottom:-10px"></div>
+<div style="width:16px;height:32px;background:#fff;border-radius:0 0 12px 12px;margin-bottom:-16px"></div>
+<div style="width:22px;height:26px;background:#fff;border-radius:0 0 12px 12px;margin-bottom:-12px"></div>
+</div>
+<div id="candles" style="position:absolute;bottom:86px;left:12px;width:156px;display:flex;justify-content:space-between">
+<div class="candle"><div class="flame"></div><div class="stick"></div></div>
+<div class="candle"><div class="flame"></div><div class="stick"></div></div>
+<div class="candle"><div class="flame"></div><div class="stick"></div></div>
+<div class="candle"><div class="flame"></div><div class="stick"></div></div>
+<div class="candle"><div class="flame"></div><div class="stick"></div></div>
+<div class="candle"><div class="flame"></div><div class="stick"></div></div>
+<div class="candle"><div class="flame"></div><div class="stick"></div></div>
+<div class="candle"><div class="flame"></div><div class="stick"></div></div>
+</div>
+</div>
+<p id="blowText" style="margin-top:28px;color:#fff;font-size:12px;letter-spacing:2px;opacity:0.9;font-style:italic">Touch to blow</p>
+<p style="margin-top:18px;color:#fff;font-size:13px;font-weight:600">Happy Birthday!<br>Anisha 💜</p>
+<canvas id="confettiCanvas" style="position:absolute;inset:0;pointer-events:none"></canvas>
+</div>
+<div id="teddyFinal" style="margin-top:14px;opacity:0;transition:0.8s"><span style="font-size:46px">🧸</span><span style="font-size:32px;margin-left:6px">🎁</span><p style="margin-top:6px;color:#ff8fab;font-size:12px;font-weight:600">HBD ANISHA 💓 Just For You!</p></div>
+<div class="btn" id="cakeBtn" style="display:none" onclick="location.reload()">Replay ↺</div></div></section>
+
+<script>
+let starCanvas=document.getElementById('starBg'), sCtx=starCanvas.getContext('2d'); function rs(){starCanvas.width=innerWidth;starCanvas.height=innerHeight} rs(); addEventListener('resize',rs);
+let stars=[]; for(let i=0;i<20;i++)stars.push({type:'star',x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.6+0.8,s:Math.random()*0.5+0.2,op:Math.random()*0.5+0.3});
+for(let i=0;i<10;i++)stars.push({type:'heart',x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*3+2,s:Math.random()*0.4+0.15,op:Math.random()*0.4+0.2});
+(function drawS(){sCtx.clearRect(0,0,starCanvas.width,starCanvas.height); for(let st of stars){st.y+=st.s; if(st.y>innerHeight+20){st.y=-20;st.x=Math.random()*innerWidth} if(st.type==='star'){sCtx.beginPath(); sCtx.arc(st.x,st.y,st.r,0,6.28); sCtx.fillStyle=`rgba(255,255,255,${st.op})`; sCtx.shadowBlur=6; sCtx.shadowColor='#ff8fab'; sCtx.fill();}else{sCtx.font=`${st.r*2}px serif`; sCtx.globalAlpha=st.op; sCtx.fillText('💜',st.x,st.y); sCtx.globalAlpha=1;}} requestAnimationFrame(drawS);})();
+// 25 BALLOONS
+let balloonBg=document.getElementById('balloonBg');
+let bEmojis=['🎈','🎈','🎈','💜','💖','💙','💗','🎈','🎈'];
+for(let i=0;i<25;i++){
+let b=document.createElement('div'); b.className='balloon';
+b.innerText=bEmojis[Math.floor(Math.random()*bEmojis.length)];
+b.style.left=Math.random()*100+'vw';
+b.style.animationDuration=(Math.random()*8+10)+'s';
+b.style.animationDelay=(Math.random()*6)+'s';
+b.style.fontSize=(Math.random()*10+20)+'px';
+balloonBg.appendChild(b);
+}
+function startFirstVideo(){
+let cv=document.getElementById('firstCanvas'), ctx=cv.getContext('2d'); let W,H,cx,cy,sc=20;
+function resize(){cv.width=cv.offsetWidth*2; cv.height=cv.offsetHeight*2; W=cv.width; H=cv.height; cx=W/2; cy=H/2+30;} resize();
+let points=[]; for(let a=0;a<6.28;a+=0.07){let hx=16*Math.pow(Math.sin(a),3); let hy=-(13*Math.cos(a)-5*Math.cos(2*a)-2*Math.cos(3*a)-Math.cos(4*a)); points.push({x:cx+hx*sc,y:cy+hy*sc});}
+for(let a=0;a<6.28;a+=0.15){let hx=10*Math.pow(Math.sin(a),3); let hy=-(8*Math.cos(a)-3*Math.cos(2*a)-1.5*Math.cos(3*a)-0.5*Math.cos(4*a)); points.push({x:cx+hx*sc*0.6,y:cy+hy*sc*0.6});}
+class HeartP{constructor(sx,sy,tx,ty,delay,fromLeft){this.x=sx;this.y=sy;this.tx=tx;this.ty=ty;this.delay=delay;this.t=0;this.s=Math.random()*2.5+1.8;this.active=false;this.arrived=false;this.fromLeft=fromLeft;}
+update(){if(this.delay>0){this.delay--;return false;}this.active=true;this.t+=0.018;if(this.t>=1){this.x=this.tx;this.y=this.ty;this.arrived=true;return true;}this.x=this.x+(this.tx-this.x)*0.06; this.y=this.y+(this.ty-this.y)*0.06 - Math.sin(this.t*Math.PI)*12; return false;}
+draw(ctx){if(!this.active)return;ctx.fillStyle=this.arrived?'#ff1a5e':'#ff7aa2';ctx.shadowColor='#ff2e7a';ctx.shadowBlur=this.arrived?22:12;ctx.beginPath();let x=this.x,y=this.y,s=this.s;ctx.moveTo(x,y-s*0.5);ctx.bezierCurveTo(x,y-s*0.8,x-s*0.6,y-s*0.8,x-s*0.6,y-s*0.2);ctx.bezierCurveTo(x-s*0.6,y+s*0.2,x,y+s*0.6,x,y+s*0.8);ctx.bezierCurveTo(x,y+s*0.6,x+s*0.6,y+s*0.2,x+s*0.6,y-s*0.2);ctx.bezierCurveTo(x+s*0.6,y-s*0.8,x,y-s*0.8,x,y-s*0.5);ctx.fill();ctx.shadowBlur=0;}}
+let ps=[]; for(let i=0;i<points.length;i++){let fromLeft=i%2==0; let sx=fromLeft?70:W-70; let sy=H-60; ps.push(new HeartP(sx,sy,points[i].x,points[i].y,i*0.65,fromLeft));}
+let bearL=document.getElementById('bearLeft'), bearR=document.getElementById('bearRight');
+function loop(){ctx.fillStyle='#120812'; ctx.fillRect(0,0,W,H); ctx.fillStyle='rgba(255,255,255,0.08)'; for(let k=0;k<18;k++){ctx.beginPath();ctx.arc(Math.random()*W,Math.random()*H,0.8,0,6.28);ctx.fill();} let arrived=0; for(let p of ps){p.update(); if(p.arrived) arrived++; if(p.active &&!p.arrived){if(p.fromLeft) bearL.style.transform=`translateY(-4px) rotate(-12deg)`; else bearR.style.transform=`translateY(-4px) rotate(12deg)`;} else {bearL.style.transform=`translateY(0) rotate(0)`; bearR.style.transform=`translateY(0) rotate(0)`;} p.draw(ctx);} if(arrived>ps.length*0.88){document.getElementById('firstTextOverlay').style.opacity='1'; document.getElementById('firstText').innerText='Happy Birthday Anisha 💜✨'; document.getElementById('firstBtn').style.display='block'; return;} requestAnimationFrame(loop);} loop();}
+startFirstVideo();
+let cur=1,isPlaying=false,music=document.getElementById('bgMusic'); music.volume=0.32;
+function playMusic(){if(!isPlaying){music.play().then(()=>{isPlaying=true}).catch(()=>{})}}
+function toggleSound(){if(isPlaying){music.pause();document.getElementById('soundBtn').innerText='🔇 Sound Off';isPlaying=false}else{music.play();document.getElementById('soundBtn').innerText='🔊 Sound On';isPlaying=true}}
+function go(n){document.getElementById('s'+cur).classList.remove('active');document.getElementById('s'+n).classList.add('active');cur=n;if(n==4)startReason();if(n==5)startLittle();if(n==6)startMo();if(n==7)startCute();if(n==10)startCake();}
+function startReason(){let seq=[{id:'r1',cls:'flyL'},{id:'r2',cls:'flyR'},{id:'r3',cls:'zoom'},{id:'r4',cls:'flip'},{id:'r5',cls:'elastic'}];let i=0;function nxt(){if(i<seq.length){let el=document.getElementById(seq[i].id);el.classList.add(seq[i].cls);el.style.opacity=1;i++;setTimeout(nxt,800);}else setTimeout(()=>document.getElementById('reasonBtn').style.display='block',600);}nxt();}
+function startLittle(){let seq=[{id:'l1',cls:'flyL'},{id:'l2',cls:'flyR'},{id:'l3',cls:'zoom'},{id:'l4',cls:'flip'},{id:'l5',cls:'elastic'}];let i=0;function nxt(){if(i<seq.length){let el=document.getElementById(seq[i].id);el.classList.add(seq[i].cls);el.style.opacity=1;i++;setTimeout(nxt,750);}else setTimeout(()=>document.getElementById('littleBtn').style.display='block',600);}nxt();}
+function startMo(){let seq=[{id:'mo1',cls:'flyL'},{id:'mo2',cls:'flyR'},{id:'mo3',cls:'flip'},{id:'mo4',cls:'elastic'}];let i=0;function nxt(){if(i<seq.length){let el=document.getElementById(seq[i].id);el.classList.add(seq[i].cls);el.style.opacity=1;i++;setTimeout(nxt,700);}else setTimeout(()=>document.getElementById('moBtn').style.display='block',600);}nxt();}
+function startCute(){let seq=[{id:'c1',cls:'flyL'},{id:'c2',cls:'flyR'},{id:'c3',cls:'zoom'},{id:'c4',cls:'flip'}];let i=0;function nxt(){if(i<seq.length){let el=document.getElementById(seq[i].id);el.classList.add(seq[i].cls);el.style.opacity=1;i++;setTimeout(nxt,750);}else setTimeout(()=>document.getElementById('cuteBtn').style.display='block',600);}nxt();}
+function makeWish(){let star=document.getElementById('wishStar');star.style.transform='scale(0)';star.style.opacity='0';let cv=document.getElementById('fireCanvas'),ctx=cv.getContext('2d');cv.width=cv.offsetWidth*2;cv.height=cv.offsetHeight*2;let fireworks=[];function createFire(x,y){let parts=[];for(let k=0;k<25;k++){let ang=Math.random()*6.28,spd=Math.random()*4+1;parts.push({x:x,y:y,vx:Math.cos(ang)*spd,vy:Math.sin(ang)*spd,life:60,cl:`hsl(${320+Math.random()*40},100%,70%)`})}fireworks.push(parts)}createFire(cv.width/2,cv.height/2);setTimeout(()=>createFire(cv.width*0.3,cv.height*0.4),300);setTimeout(()=>createFire(cv.width*0.7,cv.height*0.5),600);(function anim(){ctx.fillStyle='rgba(15,10,26,0.18)';ctx.fillRect(0,0,cv.width,cv.height);for(let fw of fireworks){for(let p of fw){p.x+=p.vx;p.y+=p.vy;p.vy+=0.06;p.life--;ctx.fillStyle=p.cl;ctx.shadowBlur=8;ctx.shadowColor=p.cl;ctx.beginPath();ctx.arc(p.x,p.y,2.5,0,6.28);ctx.fill();}}fireworks=fireworks.filter(fw=>fw.some(p=>p.life>0));if(fireworks.length>0)requestAnimationFrame(anim);})();document.getElementById('wishText').style.opacity='1';setTimeout(()=>document.getElementById('wishBtn').style.display='block',1400);}
+let blown=false;
+function blowCandles(){if(blown) return; blown=true; document.querySelectorAll('.flame').forEach((f,i)=>{setTimeout(()=>f.classList.add('off'), i*80);}); document.getElementById('blowText').innerText='Yay! 🎉'; launchConfetti(); setTimeout(()=>{document.getElementById('teddyFinal').style.opacity='1'; document.getElementById('cakeBtn').style.display='block';},800);}
+function launchConfetti(){let cv=document.getElementById('confettiCanvas'), ctx=cv.getContext('2d'); cv.width=cv.offsetWidth*2; cv.height=cv.offsetHeight*2; let confettis=[]; let colors=['#ff5c8a','#ffd93d','#6bcf7f','#4d96ff','#ff8fab','#fff','#a78bfa']; for(let i=0;i<120;i++){confettis.push({x:cv.width/2 + (Math.random()-0.5)*200,y:cv.height*0.3,vx:(Math.random()-0.5)*12,vy:Math.random()*-8 -2,r:Math.random()*6+3,color:colors[Math.floor(Math.random()*colors.length)],rot:Math.random()*360,vr:(Math.random()-0.5)*12,shape:Math.random()>0.5?'rect':'circle',life:180});} (function anim(){ctx.clearRect(0,0,cv.width,cv.height); let alive=false; for(let c of confettis){if(c.life<=0) continue; alive=true; c.x+=c.vx; c.y+=c.vy; c.vy+=0.18; c.rot+=c.vr; c.life--; ctx.save(); ctx.translate(c.x,c.y); ctx.rotate(c.rot*Math.PI/180); ctx.fillStyle=c.color; if(c.shape==='rect'){ctx.fillRect(-c.r/2,-c.r/2,c.r,c.r*0.6);}else{ctx.beginPath(); ctx.arc(0,0,c.r/2,0,6.28); ctx.fill();} ctx.restore();} if(alive) requestAnimationFrame(anim);})();}
+function startCake(){}
+</script>
+</body>
+</html>
